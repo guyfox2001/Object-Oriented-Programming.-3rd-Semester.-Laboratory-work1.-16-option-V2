@@ -123,6 +123,7 @@ void SeaBattleGame::print_maps()
 		}
 		std::cout << '\n';
 	}
+	std::cout << "   \n";
 }
 
 void SeaBattleGame::start_table()
