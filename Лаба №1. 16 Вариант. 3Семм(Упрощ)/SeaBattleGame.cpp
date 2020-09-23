@@ -110,6 +110,30 @@ void SeaBattleGame::insert_ship()
 	}
 }
 
+void SeaBattleGame::shot()
+{
+	int xPos, yPos;
+
+	while (true)
+	{
+		std::cout << "Введите координаты X-строку (1<x<10) и Y-столб (1<y<10)\n";
+		std::cin >> xPos >> yPos;
+		if (xPos >= 1 && yPos >= 1 && xPos <= 10 && yPos <= 10) break;
+		else std::cout << "Ошибка\n";
+	}
+	xPos--; yPos--;
+
+	if (this->EnemyMAP[xPos][yPos] == 0) {
+		std::cout << "Промах! \n";
+		this->EnemyMAP[xPos][yPos] = 8;
+	}
+	if (this->EnemyMAP[xPos][yPos] == 9) std::cout << "Выстрел в эту точку уже был\n";
+	if (this->EnemyMAP[xPos][yPos] >= 1 && this->EnemyMAP[xPos][yPos] <= 4) {
+		std::cout << "Попадание \n";
+		this->EnemyMAP[xPos][yPos] = 9;
+	}
+}
+
 void SeaBattleGame::print_maps()
 {
 	std::cout << "-------------------------OUR MAP-------------------------\n";
@@ -119,7 +143,12 @@ void SeaBattleGame::print_maps()
 		}
 		std::cout << "               ";
 		for (int j = 0; j < SIZE_OF_MAP; ++j) {
-			std::cout << this->EnemyMAP[i][j] << " ";
+			if (this->EnemyMAP[i][j] == 9 || this->EnemyMAP[i][j] == 8) {
+				if (this->EnemyMAP[i][j] == 9) std::cout << "S" << " ";
+				if (this->EnemyMAP[i][j] == 8) std::cout << "X" << " ";
+			}
+			else
+				std::cout << 0 << " ";
 		}
 		std::cout << '\n';
 	}
